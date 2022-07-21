@@ -9,6 +9,11 @@ export const initialState = {
     ],
     center: [51.1657, 10.4515],
   },
+  currentLocation: {
+    bundesland: "",
+    location: ""
+  },
+  entities: {}
 };
 
 const context = createContext(initialState);
