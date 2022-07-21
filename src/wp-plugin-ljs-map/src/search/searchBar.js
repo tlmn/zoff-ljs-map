@@ -3,12 +3,8 @@ import axios from "axios";
 import useAppContext from "../hooks/useAppContext";
 
 const SearchBar = () => {
-  const {
-    appState: {
-      map: { center },
-    },
-    setAppState,
-  } = useAppContext();
+  const { setAppState } = useAppContext();
+  
   const handleSearch = async (e) => {
     e.preventDefault();
 
@@ -20,9 +16,10 @@ const SearchBar = () => {
 
     if (res.data.status === "ok") {
       let data = res.data.data;
+      console.log(data.boundingBox);
       setAppState((prev) => ({
         ...prev,
-        map: { ...prev.map, center: [data.lat, data.lon] },
+        map: { ...prev.map, center: data.center, bounds: data.boundingBox },
       }));
     } else {
       return null;
@@ -31,8 +28,8 @@ const SearchBar = () => {
 
   return (
     <form onSubmit={(e) => handleSearch(e)}>
-      <input placeholder="Gib deine Stadt ein"/>
-      <button type="submit">suchen</button>
+      <input placeholder="Gib deine Stadt ein" />
+      <button type="submit">Ort suchen</button>
     </form>
   );
 };
