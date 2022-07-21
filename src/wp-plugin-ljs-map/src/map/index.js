@@ -1,9 +1,11 @@
 import React, { Fragment } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import "./map.css";
 import { BUNDESLAENDER } from "../data/bundeslaender";
 import FederalEntity from "./federalEntity";
 import useAppContext from "../hooks/useAppContext";
+import SetViewOnInputChange from "./setViewOnInputChange"
+
 
 const Map = () => {
   const {
@@ -14,8 +16,8 @@ const Map = () => {
 
   return (
     <MapContainer
-      bounds={bounds}
       center={center}
+      bounds={bounds}
       scrollWheelZoom={false}
       style={{ width: "100%", height: "100%" }}
       maxBounds
@@ -29,6 +31,7 @@ const Map = () => {
           <FederalEntity data={BUNDESLAND} />
         </Fragment>
       ))}
+      <SetViewOnInputChange />
     </MapContainer>
   );
 };
