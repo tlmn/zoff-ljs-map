@@ -1,11 +1,11 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "./map.css";
 import { BUNDESLAENDER } from "../data/bundeslaender";
 import FederalEntity from "./federalEntity";
 import useAppContext from "../hooks/useAppContext";
-import SetViewOnInputChange from "./setViewOnInputChange"
-
+import SetViewOnInputChange from "./setViewOnInputChange";
+import { getEntities } from "./lib/lib";
 
 const Map = () => {
   const {
@@ -13,6 +13,10 @@ const Map = () => {
       map: { center, bounds },
     },
   } = useAppContext();
+
+  useEffect(() => {
+    console.log(getEntities());
+  });
 
   return (
     <MapContainer
