@@ -4,7 +4,7 @@ import useAppContext from "../hooks/useAppContext";
 
 const SearchBar = () => {
   const { setAppState } = useAppContext();
-  
+
   const handleSearch = async (e) => {
     e.preventDefault();
 
@@ -16,10 +16,14 @@ const SearchBar = () => {
 
     if (res.data.status === "ok") {
       let data = res.data.data;
-      console.log(data.boundingBox);
+
       setAppState((prev) => ({
         ...prev,
-        map: { ...prev.map, center: data.center, bounds: data.boundingBox },
+        map: {
+          ...prev.map,
+          center: [parseFloat(data.center[1]), parseFloat(data.center[0])],
+          bounds: data.boundingBox,
+        },
       }));
     } else {
       return null;
