@@ -35,7 +35,7 @@ const SetViewOnInputChange = () => {
 
     setAppState((prev) => ({
       ...prev,
-      currentCity: {
+      currentLocation: {
         ...prev.currentCity,
         bundesland: currentBundeslandName,
       },
