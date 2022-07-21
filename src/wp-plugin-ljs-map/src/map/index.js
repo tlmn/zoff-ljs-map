@@ -3,17 +3,21 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "./map.css";
 import { BUNDESLAENDER } from "../data/bundeslaender";
 import FederalEntity from "./federalEntity";
+import useAppContext from "../hooks/useAppContext";
 
 const Map = () => {
-  const position = [51.1657, 10.4515];
+  const {
+    appState: {
+      map: { center, bounds },
+    },
+  } = useAppContext();
 
   return (
     <MapContainer
-      center={position}
-      zoom={6}
+      bounds={bounds}
+      center={center}
       scrollWheelZoom={false}
       style={{ width: "100%", height: "100%" }}
-      maxZoom={10}
       maxBounds
     >
       <TileLayer
@@ -25,12 +29,6 @@ const Map = () => {
           <FederalEntity data={BUNDESLAND} />
         </Fragment>
       ))}
-
-      <Marker position={position}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
     </MapContainer>
   );
 };
