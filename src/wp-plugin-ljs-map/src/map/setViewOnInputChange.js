@@ -4,11 +4,13 @@ import useAppContext from "../hooks/useAppContext";
 import { useMap } from "react-leaflet";
 import { geoContains } from "d3";
 import { BUNDESLAENDER } from "../data/bundeslaender";
+import { calcDistance } from "./lib/lib";
 
 const SetViewOnInputChange = () => {
   const {
     appState: {
       map: { bounds, center },
+      entities,
     },
     setAppState,
   } = useAppContext();
@@ -40,7 +42,20 @@ const SetViewOnInputChange = () => {
         bundesland: currentBundeslandName,
       },
     }));
-  }, [center]);
+
+    if (entities.length > 0) {
+      const entitiesWDistances = entities.map((entity) => ({
+        ...entity,
+        distanceCurrentLocation: calcDistance(
+          entity.meet_coordinates[0],
+          entity.meet_coordinates[1],
+          center[0],
+          center[1]
+        ),
+      }));
+      setAppState((prev) => ({ ...prev, entities: entitiesWDistances }));
+    }
+  }, [center, setAppState]);
 };
 
 export default SetViewOnInputChange;
