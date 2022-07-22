@@ -12,11 +12,12 @@ const Map = () => {
     appState: {
       map: { center, bounds },
     },
+    setAppState,
   } = useAppContext();
 
   useEffect(() => {
-    console.log(getEntities());
-  });
+    setAppState((prev) => ({ ...prev, entities: getEntities() }));
+  }, [setAppState]);
 
   return (
     <MapContainer
