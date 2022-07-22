@@ -47,11 +47,5 @@
     "fs": false,
     "path": false,
     "os": false
-  },
-  "devDependencies": {
-    "dotenv-webpack": "^8.0.0",
-    "fs": "^0.0.1-security",
-    "path": "^0.12.7",
-    "renamer": "^4.0.0"
   }
 }
