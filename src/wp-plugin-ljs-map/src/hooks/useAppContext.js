@@ -13,7 +13,7 @@ export const initialState = {
     bundesland: "",
     location: ""
   },
-  entities: {}
+  entities: []
 };
 
 const context = createContext(initialState);
