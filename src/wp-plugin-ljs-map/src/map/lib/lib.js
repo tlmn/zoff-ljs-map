@@ -21,7 +21,7 @@ export const calcDistance = (lat1, lon1, lat2, lon2) => {
 
 const toRad = (value) => (value * Math.PI) / 180;
 
-export const getEntities = async () => {
+export const getEntities = () => {
   /*  const res = await axios.get(
     "https://login.stage.linksjugend-solid.de/api/v1/map/getorgunits",
     {},
@@ -34,6 +34,8 @@ export const getEntities = async () => {
   );
 
   return res?.data ? res.data : {}; */
+
+  
 
   return ENTITIES;
 };
