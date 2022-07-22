@@ -39,18 +39,20 @@ const SearchBar = () => {
 
   return (
     <>
-      <form onSubmit={(e) => handleSearch(e)}>
-        <input placeholder="Gib deine Stadt ein" />
-        <button type="submit">Ort suchen</button>
-      </form>
-      <pre>
-        current center: {JSON.stringify(center)}
-        <br />
-        current location: {JSON.stringify(currentLocation)}
-        <br />
-        distance from Berlin:{" "}
-        {calcDistance(center[1], center[0], 52.5170365, 13.3888599)}km
-      </pre>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <form onSubmit={(e) => handleSearch(e)}>
+          <input placeholder="Gib deine Stadt ein" />
+          <button type="submit">Ort suchen</button>
+        </form>
+        <pre>
+          current center: {JSON.stringify(center)}
+          <br />
+          current location: {JSON.stringify(currentLocation)}
+          <br />
+          distance from Berlin:{" "}
+          {calcDistance(center[1], center[0], 52.5170365, 13.3888599)}km
+        </pre>
+      </div>
     </>
   );
 };
