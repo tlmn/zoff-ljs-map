@@ -1,5 +1,4 @@
-// import axios from "axios";
-import { ENTITIES } from "../../data/sampleData";
+import axios from "axios";
 
 export const calcDistance = (lat1, lon1, lat2, lon2) => {
   var R = 6371;
@@ -21,21 +20,25 @@ export const calcDistance = (lat1, lon1, lat2, lon2) => {
 
 const toRad = (value) => (value * Math.PI) / 180;
 
-export const getEntities = () => {
-  /*  const res = await axios.get(
-    "https://login.stage.linksjugend-solid.de/api/v1/map/getorgunits",
-    {},
-    {
-      auth: {
-        username: process.env.LJS_API_USER,
-        password: process.env.LJS_API_PASSWORD,
-      },
-    }
+export const getEntities = async () => {
+  var credentials = btoa(
+    process.env.REACT_APP_LJS_API_USER +
+      ":" +
+      process.env.REACT_APP_LJS_API_PASSWORD
   );
+  var config = {
+    method: "get",
+    url: "https://login.stage.linksjugend-solid.de/api/v1/map/getorgunits",
+    headers: {
+      Authorization: "Basic " + credentials,
+    },
+  };
 
-  return res?.data ? res.data : {}; */
+  const res = await axios(config)
+    .then((results) => results.data)
+    .catch(function (error) {
+      console.log(error);
+    });
 
-  
-
-  return ENTITIES;
+  return (await res) ? res : [];
 };
