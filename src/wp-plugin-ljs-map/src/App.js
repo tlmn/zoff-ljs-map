@@ -4,7 +4,6 @@ import Map from "./map";
 import Search from "./search";
 
 const App = () => (
-  <div className="App">
     <Provider>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div style={{ display: "block", width: "100%", height: "100vh" }}>
@@ -13,7 +12,6 @@ const App = () => (
         <Search />
       </div>
     </Provider>
-  </div>
 );
 
 export default App;

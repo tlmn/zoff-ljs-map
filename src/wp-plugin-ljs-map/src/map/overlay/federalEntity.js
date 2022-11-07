@@ -9,7 +9,6 @@ const FederalEntity = ({ data }) => {
       data={data}
       onEachFeature={(_, layer) =>
         layer.on({
-          click: () => console.log("click"),
           mouseover: () => setIsMouseHover(true),
           mouseout: () => setIsMouseHover(false),
         })

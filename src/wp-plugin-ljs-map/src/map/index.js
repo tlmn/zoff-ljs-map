@@ -2,22 +2,23 @@ import React, { Fragment, useEffect } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "./map.css";
 import { BUNDESLAENDER } from "../data/bundeslaender";
-import FederalEntity from "./federalEntity";
+import FederalEntity from "./overlay/federalEntity";
 import useAppContext from "../hooks/useAppContext";
 import SetViewOnInputChange from "./setViewOnInputChange";
-import { getEntities } from "./lib/lib";
+import { setEntities } from "../lib/lib";
+import Markers from "./markers";
 
 const Map = () => {
   const {
     appState: {
       map: { center, bounds },
     },
-    setAppState,
+    setAppState
   } = useAppContext();
 
   useEffect(() => {
-    setAppState((prev) => ({ ...prev, entities: getEntities() }));
-  }, [setAppState]);
+    setEntities(setAppState);
+  }, []);
 
   return (
     <MapContainer
@@ -31,11 +32,12 @@ const Map = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {BUNDESLAENDER.features.map((BUNDESLAND, index) => (
+      {BUNDESLAENDER.features.map((FEDERALSTATE, index) => (
         <Fragment key={index}>
-          <FederalEntity data={BUNDESLAND} />
+          <FederalEntity data={FEDERALSTATE} />
         </Fragment>
       ))}
+      <Markers />
       <SetViewOnInputChange />
     </MapContainer>
   );

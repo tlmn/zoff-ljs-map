@@ -4,13 +4,11 @@ import useAppContext from "../hooks/useAppContext";
 import { useMap } from "react-leaflet";
 import { geoContains } from "d3";
 import { BUNDESLAENDER } from "../data/bundeslaender";
-import { calcDistance } from "./lib/lib";
 
 const SetViewOnInputChange = () => {
   const {
     appState: {
       map: { bounds, center },
-      entities,
     },
     setAppState,
   } = useAppContext();
@@ -27,34 +25,21 @@ const SetViewOnInputChange = () => {
   }, [bounds, map]);
 
   useEffect(() => {
-    let currentBundesland = BUNDESLAENDER.features.filter((BUNDESLAND) =>
-      geoContains(BUNDESLAND, center)
+    let currentFederalState = BUNDESLAENDER.features.filter((FEDERALSTATE) =>
+      geoContains(FEDERALSTATE, center)
     )[0];
 
-    let currentBundeslandName = currentBundesland?.properties?.name
-      ? currentBundesland?.properties?.name
+    let currentFederalStateName = currentFederalState?.properties?.name
+      ? currentFederalState?.properties?.name
       : "";
 
     setAppState((prev) => ({
       ...prev,
       currentLocation: {
         ...prev.currentCity,
-        bundesland: currentBundeslandName,
+        federalState: currentFederalStateName,
       },
     }));
-
-    if (entities.length > 0) {
-      const entitiesWDistances = entities.map((entity) => ({
-        ...entity,
-        distanceCurrentLocation: calcDistance(
-          entity.meet_coordinates[0],
-          entity.meet_coordinates[1],
-          center[0],
-          center[1]
-        ),
-      }));
-      setAppState((prev) => ({ ...prev, entities: entitiesWDistances }));
-    }
   }, [center, setAppState]);
 };
 
