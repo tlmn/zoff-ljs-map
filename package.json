@@ -19,5 +19,8 @@
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-run-command": "^0.0.10"
+  },
+  "dependencies": {
+    "renamer": "^4.0.0"
   }
 }
